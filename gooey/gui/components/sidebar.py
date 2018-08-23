@@ -40,6 +40,8 @@ class Sidebar(wx.Panel):
             panel.Hide()
         self.activeSelection = event.Selection
         self.configPanels[event.Selection].Show()
+        self._parent.header.setTitle(self.options[event.Selection])
+        self._parent.header.setSubtitle(self.buildSpec['widgets'][self.options[event.Selection]]['description'])
         self._parent.Layout()
 
 

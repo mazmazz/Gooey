@@ -72,6 +72,7 @@ def convert(parser, **kwargs):
         'widgets': OrderedDict(
             (choose_name(name, sub_parser), {
                 'command': name,
+                'description': getattr(sub_parser, 'description') or '',
                 'contents': process(sub_parser,
                                     getattr(sub_parser, 'widgets', {}),
                                     getattr(sub_parser, 'options', {}))

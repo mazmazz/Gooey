@@ -52,8 +52,12 @@ class FrameHeader(wx.Panel):
         self.SetSize((30, self.buildSpec['header_height']))
         self.SetMinSize((120, self.buildSpec['header_height']))
 
-        self._header = wx_util.h1(self, label=self.buildSpec['program_name'])
-        self._subheader = wx.StaticText(self, label=self.buildSpec['program_description'])
+        if len(self.buildSpec['widgets']) > 1:
+            self._header = wx_util.h1(self, label=list(self.buildSpec['widgets'].keys())[0])
+            self._subheader = wx.StaticText(self, label=list(self.buildSpec['widgets'].values())[0]['description'])
+        else:
+            self._header = wx_util.h1(self, label=self.buildSpec['program_name'])
+            self._subheader = wx.StaticText(self, label=self.buildSpec['program_description'])
 
         images = self.buildSpec['images']
         targetHeight = self.buildSpec['header_height'] - 10

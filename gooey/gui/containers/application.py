@@ -183,6 +183,8 @@ class GooeyApplication(wx.Frame):
         self.console.Hide()
         self.Layout()
         self.SetIcon(wx.Icon(self.buildSpec['images']['programIcon'], wx.BITMAP_TYPE_ICO))
+        if len(self.buildSpec['widgets']) > 1:
+            self.SetTitle(self.buildSpec['program_name'])
 
 
 
@@ -210,8 +212,12 @@ class GooeyApplication(wx.Frame):
         self.navbar.Show(True)
         self.console.Show(False)
         self.header.setImage('settings_img')
-        self.header.setTitle(_("settings_title"))
-        self.header.setSubtitle(self.buildSpec['program_description'])
+        if len(self.buildSpec['widgets']) > 1:
+            self.header.setTitle(list(self.buildSpec['widgets'].keys())[self.navbar.activeSelection])
+            self.header.setSubtitle(list(self.buildSpec['widgets'].values())[self.navbar.activeSelection]['description'])
+        else:
+            self.header.setTitle(_("settings_title"))
+            self.header.setSubtitle(self.buildSpec['program_description'])
         self.footer.showButtons('cancel_button', 'start_button')
         self.footer.progress_bar.Show(False)
 
