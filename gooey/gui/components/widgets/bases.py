@@ -55,7 +55,10 @@ class TextContainer(BaseWidget):
         self.SetSizer(self.layout)
         self.Bind(wx.EVT_SIZE, self.onSize)
         if self._meta['default']:
-            self.setValue(self._meta['default'])
+            if type(self._meta['default']) in (list, tuple) and 'nargs' in self._meta:
+                self.setValue(' '.join(map(str, self._meta['default'])))
+            else:
+                self.setValue(self._meta['default'])
 
 
     def arrange(self, *args, **kwargs):
